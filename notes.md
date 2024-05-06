@@ -342,6 +342,7 @@ func main() {
 - Units of work are distributed among a pool of workers which are running concurrently
 - Communication is done through channels
 - Useful for long running tasks or CPU bound tasks
+- Check out https://github.com/tsawler/streamer -> for tests on the streamer package
 
 ```go
 package main

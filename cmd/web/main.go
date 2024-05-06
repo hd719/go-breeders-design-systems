@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"go-breeders/adapters"
 	"go-breeders/configuration"
+	"go-breeders/streamer"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,6 +19,7 @@ type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
 	App         *configuration.Application // this is our singleton
+	videoQueue  chan streamer.VideoProcessingJob
 }
 
 type appConfig struct {
@@ -26,8 +28,13 @@ type appConfig struct {
 }
 
 func main() {
+	const numWorkers = 4
+	videoQueue := make(chan streamer.VideoProcessingJob, numWorkers)
+	defer close(videoQueue)
+
 	app := application{
 		templateMap: make(map[string]*template.Template),
+		videoQueue:  videoQueue,
 	}
 	flag.BoolVar(&app.config.useCache, "cache", false, "Use template cache")
 	flag.StringVar(&app.config.dsn, "dsn", "mariadb:myverysecretpassword@tcp(localhost:3306)/breeders_design_systems?parseTime=true&tls=false&collation=utf8_unicode_ci&timeout=5s", "DSN")
@@ -47,6 +54,9 @@ func main() {
 
 	// app.Models = *models.New(db) // hooking up the models with the database connection (old way - now we have singleton)
 	app.App = configuration.New(db, xmlAdapter)
+
+	wp := streamer.New(videoQueue, numWorkers)
+	wp.Run()
 
 	server := &http.Server{
 		Addr:              port,
