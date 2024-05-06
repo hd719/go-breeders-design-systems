@@ -323,9 +323,16 @@ func main() {
 
   ```
 
-## Next Steps
+## Next Steps (Bringing it all together)
 
 - Creating a new abstract factory method
 - Creating JSON and XML adapters
 - Updating our singleton with additional data
 - Trying it out on the front end
+
+## Decorator Pattern
+
+- The decorator pattern is a structural pattern that allows us to add new behavior to objects dynamically by placing them inside special wrapper objects called decorators
+- Takes an object and decorates it with additional functionality
+- Simple in Go bc go uses composition instead of inheritance
+- Embed a struct in another struct
