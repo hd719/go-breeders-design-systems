@@ -102,12 +102,12 @@ func NewPetFromAbstractFactory(species string) (AnimalInterface, error) {
 func NewPetWithBreedFromAbstractFactory(species, breed string) (AnimalInterface, error) {
 	switch species {
 	case "dog":
-		// return a dog with breed embedded
+		// return a dog with breed embedded from our database
 		var dogFactory DogAbstractFactory
 		dog := dogFactory.newPetWithBreed(breed)
 		return dog, nil
 	case "cat":
-		// return cat
+		// return cat with a breed embedded from a remote service
 		var catFactory CatAbstractFactory
 		cat := catFactory.newPetWithBreed(breed)
 		return cat, nil

@@ -104,7 +104,7 @@ func (xb *XMLBackend) GetAllCatBreeds() ([]*models.CatBreed, error) {
 }
 
 func (xb *XMLBackend) GetCatBreedByName(b string) (*models.CatBreed, error) {
-	resp, err := http.Get("http://localhost:8081/api/cat/breeds/" + b + "/xml")
+	resp, err := http.Get("http://localhost:8081/api/cat-breeds/" + b + "/xml")
 	if err != nil {
 		return nil, err
 	}

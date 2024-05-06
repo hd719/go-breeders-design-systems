@@ -118,7 +118,7 @@ func (app *application) GetAllCatBreeds(w http.ResponseWriter, r *http.Request) 
 
 func (app *application) AnimalFromAbstractFactory(w http.ResponseWriter, r *http.Request) {
 	// Setup toolbox
-	// var t toolbox.Tools
+	var t toolbox.Tools
 
 	// Get species from remote URL
 	species := chi.URLParam(r, "species")
@@ -130,6 +130,12 @@ func (app *application) AnimalFromAbstractFactory(w http.ResponseWriter, r *http
 	fmt.Println("Species:", species, "Breed:", breed)
 
 	// Create a pet from abstract factory
+	pet, err := pets.NewPetWithBreedFromAbstractFactory(species, breed)
+	if err != nil {
+		_ = t.ErrorJSON(w, err, http.StatusBadRequest)
+		return
+	}
 
 	// Write the result as JSON
+	_ = t.WriteJSON(w, http.StatusOK, pet)
 }
