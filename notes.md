@@ -187,3 +187,10 @@ func main() {
         return a
       }
       ```
+
+## Adapter Pattern
+
+- Most common and use patterns
+- Allows us to have different programs or parts of the same program to communicate with each other
+- Ex.
+  - A handler gets information from something and expects it to be in a JSON format
