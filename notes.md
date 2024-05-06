@@ -342,3 +342,37 @@ func main() {
 - Units of work are distributed among a pool of workers which are running concurrently
 - Communication is done through channels
 - Useful for long running tasks or CPU bound tasks
+
+```go
+package main
+
+func worker(id int, jobs chan int, results chan int) {
+  for j := range jobs {
+    fmt.Println("worker", id, "started job", j)
+    time.Sleep(time.Second) // Simulate an expensive task
+    fmt.Println("worker", id, "finished job", j)
+    results <- j * 2
+  }
+}
+
+func main() {
+  const numJobs = 5
+
+  // each job will be its own goroutine and can communicate with the main goroutine through the jobs channel
+  jobs := make(chan int, numJobs) // send jobs to the workers
+  results := make(chan int, numJobs) // receive results from the workers
+
+  for i := 1; i <= 3; i++ {
+    go worker(i, jobs, results) // Our goroutines
+  }
+
+  for j := 1; j <= numJobs; j++ {
+    jobs <- j // Send the job to the jobs channel
+  }
+  close(jobs) // Close the jobs channel
+
+  for a := 1; a <= numJobs; a++ {
+    <-results // Receive the results from the results channel
+  }
+}
+```
