@@ -12,7 +12,7 @@ type Models struct {
 }
 
 func New(conn *sql.DB) *Models {
-	repo = newMySqlRepository(conn)
+	repo = newMySqlRepository(conn) // the function that actually hooks up mysql database to our models
 
 	return &Models{
 		DogBreed: DogBreed{},

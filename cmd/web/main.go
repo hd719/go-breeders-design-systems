@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"flag"
 	"fmt"
 	"go-breeders/models"
@@ -17,7 +16,6 @@ const port = ":4001"
 type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
-	DB          *sql.DB
 	Models      models.Models
 }
 
@@ -40,8 +38,6 @@ func main() {
 		log.Panic(err)
 	}
 
-	// DB is available to our application
-	app.DB = db
 	app.Models = *models.New(db) // hooking up the models with the database connection
 
 	server := &http.Server{
