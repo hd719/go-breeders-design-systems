@@ -18,6 +18,8 @@ func (app *application) routes() http.Handler {
 	// fileServer := http.FileServer(http.Dir("./static/"))
 	// mux.Handle("/static/*", http.StripPrefix("/static/", fileserver))
 
+	mux.Get("/dog-of-month", app.DogOfMonth)
+
 	// display our test page
 	mux.Get("/test-patterns", app.TestPatterns)
 
