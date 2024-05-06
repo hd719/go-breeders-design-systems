@@ -17,6 +17,7 @@ type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
 	App         *configuration.Application // this is our singleton
+	catService  *RemoteService
 }
 
 type appConfig struct {
@@ -38,8 +39,12 @@ func main() {
 		log.Panic(err)
 	}
 
-	// app.Models = *models.New(db) // hooking up the models with the database connection
+	jsonBackend := &JSONBackend{}
+	jsonAdapter := &RemoteService{Remote: jsonBackend}
+
+	// app.Models = *models.New(db) // hooking up the models with the database connection (old way - now we have singleton)
 	app.App = configuration.New(db)
+	app.catService = jsonAdapter
 
 	server := &http.Server{
 		Addr:              port,
