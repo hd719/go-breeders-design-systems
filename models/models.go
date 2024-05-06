@@ -31,6 +31,17 @@ func (d *DogBreed) GetBreedByName(b string) (*DogBreed, error) {
 	return repo.GetBreedByName(b)
 }
 
+func (d *Dog) GetDogOfMonthByID(id int) (*DogOfMonth, error) {
+	return repo.GetDogOfMonthByID(id)
+}
+
+type DogOfMonth struct {
+	ID    int
+	Dog   *Dog
+	Video string
+	Image string
+}
+
 type DogBreed struct {
 	ID               int    `json:"id"`
 	Breed            string `json:"breed"`

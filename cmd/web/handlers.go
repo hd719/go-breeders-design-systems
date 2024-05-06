@@ -145,7 +145,7 @@ func (app *application) DogOfMonth(w http.ResponseWriter, r *http.Request) {
 
 	// Get the dog of the month from database
 
-	// Create the dog and decorate it 
+	// Create the dog and decorate it
 
 	// Serve the webpage
 }
