@@ -117,7 +117,7 @@ func (app *application) GetAllCatBreeds(w http.ResponseWriter, r *http.Request) 
 
 func (app *application) AnimalFromAbstractFactory(w http.ResponseWriter, r *http.Request) {
 	// Setup toolbox
-	var t toolbox.Tools
+	// var t toolbox.Tools
 
 	// Get species from remote URL
 
