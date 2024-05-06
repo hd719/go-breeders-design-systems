@@ -11,14 +11,14 @@ type PetInterface interface {
 	SetBreed(s string) *Pet
 	SetMinWeight(s int) *Pet
 	SetMaxWeight(s int) *Pet
-	SetAverageWeight(s int) *Pet
 	SetWeight(s int) *Pet
 	SetDescription(s string) *Pet
 	SetLifeSpan(s int) *Pet
 	SetGeographicOrigin(s string) *Pet
 	SetColor(s string) *Pet
 	SetAge(s int) *Pet
-	SetAgeEstimated(s int) *Pet
+	SetAgeEstimated(s bool) *Pet
+	Build() (*Pet, error)
 }
 
 // SetSpecies sets the species for our pet, and returns a *Pet.
@@ -42,12 +42,6 @@ func (p *Pet) SetMinWeight(s int) *Pet {
 // SetMaxWeight sets the maximum weight for our pet, and returns a *Pet.
 func (p *Pet) SetMaxWeight(s int) *Pet {
 	p.MaxWeight = s
-	return p
-}
-
-// SetAverageWeight sets the maximum weight for our pet, and returns a *Pet.
-func (p *Pet) SetAverageWeight(s int) *Pet {
-	p.AverageWeight = s
 	return p
 }
 
@@ -88,7 +82,7 @@ func (p *Pet) SetAge(s int) *Pet {
 }
 
 // SetAgeEstimated sets the age for our pet, and returns a *Pet.
-func (p *Pet) SetAgeEstimated(s int) *Pet {
+func (p *Pet) SetAgeEstimated(s bool) *Pet {
 	p.AgeEstimated = s
 	return p
 }
