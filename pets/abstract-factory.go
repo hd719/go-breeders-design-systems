@@ -15,6 +15,11 @@ type DogFromFactory struct {
 }
 
 func (dff *DogFromFactory) Show() string {
+	fmt.Println("DogFromFactory:", dff)
+	fmt.Println("Pet:", dff.Pet)
+	fmt.Println("Breed:", dff.Pet.Breed)
+	formattedString := fmt.Sprintf("This animal is a %s", dff.Pet.Breed.Breed)
+	fmt.Println(formattedString)
 	return fmt.Sprintf("This animal is a %s", dff.Pet.Breed.Breed)
 }
 
@@ -23,6 +28,8 @@ type CatFromFactory struct {
 }
 
 func (cff *CatFromFactory) Show() string {
+	formattedString := fmt.Sprintf("This animal is a %s", cff.Pet.Breed.Breed)
+	fmt.Println(formattedString)
 	return fmt.Sprintf("This animal is a %s", cff.Pet.Breed.Breed)
 }
 
@@ -51,10 +58,12 @@ func NewPetFromAbstractFactory(species string) (AnimalInterface, error) {
 	case "dog":
 		var dogFactory DogAbstractFactory
 		dog := dogFactory.newPet()
+		dog.Show()
 		return dog, nil
 	case "cat":
 		var catFactory CatAbstractFactory
 		cat := catFactory.newPet()
+		cat.Show()
 		return cat, nil
 	default:
 		return nil, errors.New("invalid species supplied")
