@@ -10,11 +10,10 @@ import (
 type templateData struct {
 	Data map[string]any
 }
-
 func (app *application) render(w http.ResponseWriter, t string, td *templateData) {
 	var tmpl *template.Template
 
-	// If we are using the template cache, try to get the template from our map, stored in the reciever
+	// If we are using the template cache, try to get the template from our map, stored in the receiver
 	if app.config.useCache {
 		// Get template from the cache
 		if templateFromMap, ok := app.templateMap[t]; ok {

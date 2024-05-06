@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-breeders/pets"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -19,11 +20,10 @@ func (app *application) ShowPage(w http.ResponseWriter, r *http.Request) {
 
 func (app *application) CreateDogFromFactory(w http.ResponseWriter, r *http.Request) {
 	var t toolbox.Tools
-	_, = t.WriteJSON(w, http.StatusOk, pets.NewPet("dog"))
+	_ = t.WriteJSON(w, http.StatusOK, pets.NewPet("dog"))
 }
 
 func (app *application) CreateCatFromFactory(w http.ResponseWriter, r *http.Request) {
 	var t toolbox.Tools
-	_, = t.WriteJSON(w, http.StatusOk, pets.NewPet("cat"))
+	_ = t.WriteJSON(w, http.StatusOK, pets.NewPet("cat"))
 }
-
