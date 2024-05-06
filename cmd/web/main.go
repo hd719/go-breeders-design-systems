@@ -39,12 +39,16 @@ func main() {
 		log.Panic(err)
 	}
 
-	jsonBackend := &JSONBackend{}
-	jsonAdapter := &RemoteService{Remote: jsonBackend}
+	// Have the choice of using either xml or json
+	// jsonBackend := &JSONBackend{}
+	// jsonAdapter := &RemoteService{Remote: jsonBackend}
+	// app.catService = jsonAdapter
+	xmlBackend := &XMLBackend{}
+	xmlAdapter := &RemoteService{Remote: xmlBackend}
+	app.catService = xmlAdapter
 
 	// app.Models = *models.New(db) // hooking up the models with the database connection (old way - now we have singleton)
 	app.App = configuration.New(db)
-	app.catService = jsonAdapter
 
 	server := &http.Server{
 		Addr:              port,
