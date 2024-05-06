@@ -9,8 +9,8 @@ type Pet struct {
 	Weight           int    `json:"weight,omitempty"`
 	Description      string `json:"description,omitempty"`
 	LifeSpan         int    `json:"lifespan,omitempty"`
-	GeographicOrigin int    `json:"geographic_origin,omitempty"`
+	GeographicOrigin string `json:"geographic_origin,omitempty"`
 	Color            string `json:"color,omitempty"`
-	Age              string `json:"age,omitempty"`
-	AgeEstimated     string `json:"age_estimated,omitempty"`
+	Age              int    `json:"age,omitempty"`
+	AgeEstimated     int    `json:"age_estimated,omitempty"`
 }
