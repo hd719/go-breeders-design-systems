@@ -336,3 +336,9 @@ func main() {
 - Takes an object and decorates it with additional functionality
 - Simple in Go bc go uses composition instead of inheritance
 - Embed a struct in another struct
+
+## Worker Pool Pattern
+
+- Units of work are distributed among a pool of workers which are running concurrently
+- Communication is done through channels
+- Useful for long running tasks or CPU bound tasks
