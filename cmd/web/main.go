@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"go-breeders/adapters"
 	"go-breeders/configuration"
 	"html/template"
 	"log"
@@ -17,7 +18,6 @@ type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
 	App         *configuration.Application // this is our singleton
-	catService  *RemoteService
 }
 
 type appConfig struct {
@@ -40,15 +40,13 @@ func main() {
 	}
 
 	// Have the choice of using either xml or json
-	// jsonBackend := &JSONBackend{}
-	// jsonAdapter := &RemoteService{Remote: jsonBackend}
-	// app.catService = jsonAdapter
-	xmlBackend := &XMLBackend{}
-	xmlAdapter := &RemoteService{Remote: xmlBackend}
-	app.catService = xmlAdapter
+	// jsonBackend := &adapters.SONBackend{}
+	// jsonAdapter := &adapters.RemoteService{Remote: jsonBackend}
+	xmlBackend := &adapters.XMLBackend{}
+	xmlAdapter := &adapters.RemoteService{Remote: xmlBackend}
 
 	// app.Models = *models.New(db) // hooking up the models with the database connection (old way - now we have singleton)
-	app.App = configuration.New(db)
+	app.App = configuration.New(db, xmlAdapter)
 
 	server := &http.Server{
 		Addr:              port,

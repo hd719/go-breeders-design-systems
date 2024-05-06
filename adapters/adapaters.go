@@ -10,6 +10,7 @@ import (
 
 type CatBreedsInterface interface {
 	GetAllCatBreeds() ([]*models.CatBreed, error)
+	GetCatBreedByName(b string) (*models.CatBreed, error)
 }
 
 type RemoteService struct {
@@ -48,6 +49,29 @@ func (jd *JSONBackend) GetAllCatBreeds() ([]*models.CatBreed, error) {
 	return breeds, nil
 }
 
+func (jd *JSONBackend) GetCatBreedByName(b string) (*models.CatBreed, error) {
+	resp, err := http.Get("http://localhost:8081/api/cat/breeds/" + b + "/json")
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var breed models.CatBreed
+
+	err = json.Unmarshal(body, &breed)
+	if err != nil {
+		return nil, err
+	}
+
+	return &breed, nil
+}
+
 // -----------------------------
 
 type XMLBackend struct{}
@@ -77,4 +101,47 @@ func (xb *XMLBackend) GetAllCatBreeds() ([]*models.CatBreed, error) {
 	}
 
 	return breeds.Breeds, nil
+}
+
+func (xb *XMLBackend) GetCatBreedByName(b string) (*models.CatBreed, error) {
+	resp, err := http.Get("http://localhost:8081/api/cat/breeds/" + b + "/xml")
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	var breed models.CatBreed
+
+	err = xml.Unmarshal(body, &breed)
+	if err != nil {
+		return nil, err
+	}
+
+	return &breed, nil
+}
+
+// -----------------------------
+
+type TestBackend struct{}
+
+func (tb *TestBackend) GetAllCatBreeds() ([]*models.CatBreed, error) {
+	breeds := []*models.CatBreed{
+		&models.CatBreed{
+			ID:      1,
+			Breed:   "Tomcat",
+			Details: "Some details",
+		},
+	}
+
+	return breeds, nil
+}
+
+func (tb *TestBackend) GetCatBreedByName(b string) (*models.CatBreed, error) {
+	return nil, nil
 }
