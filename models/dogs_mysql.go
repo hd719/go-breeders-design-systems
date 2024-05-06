@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func (d *DogBreed) AllDogBreeds() ([]*DogBreed, error) {
+func (d *mysqlRepository) AllDogBreeds() ([]*DogBreed, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancel()
 
