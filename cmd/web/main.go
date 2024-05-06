@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 const port = ":4001"
@@ -12,16 +13,26 @@ const port = ":4001"
 type application struct{}
 
 func main() {
-	// app := application{}
+	app := application{}
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hi")
-	})
+	server := &http.Server{
+		Addr:              port,
+		Handler:           app.routes(),
+		IdleTimeout:       30 * time.Second,
+		ReadTimeout:       30 * time.Second,
+		ReadHeaderTimeout: 30 * time.Second,
+		WriteTimeout:      30 * time.Second,
+	}
+
+	// This uses go's default mux router
+	// http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	// 	fmt.Fprint(w, "Hi")
+	// })
 
 	fmt.Println("Start web application on port", port)
 
-	err := http.ListenAndServe(port, nil)
+	err := server.ListenAndServe()
 	if err != nil {
-		log.Panic(err)
+		log.Fatal(err)
 	}
 }
