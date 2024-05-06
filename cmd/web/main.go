@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"go-breeders/models"
+	"go-breeders/configuration"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,7 +16,7 @@ const port = ":4001"
 type application struct {
 	templateMap map[string]*template.Template
 	config      appConfig
-	Models      models.Models
+	App         *configuration.Application // this is our singleton
 }
 
 type appConfig struct {
@@ -38,7 +38,8 @@ func main() {
 		log.Panic(err)
 	}
 
-	app.Models = *models.New(db) // hooking up the models with the database connection
+	// app.Models = *models.New(db) // hooking up the models with the database connection
+	app.App = configuration.New(db)
 
 	server := &http.Server{
 		Addr:              port,
