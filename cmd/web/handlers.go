@@ -104,10 +104,10 @@ func (app *application) CreateCatWithBuilder(w http.ResponseWriter, r *http.Requ
 	_ = t.WriteJSON(w, http.StatusOK, p)
 }
 
-func (app *application) GetAllCatBreeds(w http.ResponseWriter, r *http.Request) {
+func (app *application) GetAllCatBreedsJSON(w http.ResponseWriter, r *http.Request) {
 	var t toolbox.Tools
 
-	catBreeds, err := app.catService.GetAllBreeds()
+	catBreeds, err := app.catService.GetAllBreeds() // this is coming from our adapter
 	if err != nil {
 		_ = t.ErrorJSON(w, err, http.StatusBadRequest)
 	}
