@@ -129,3 +129,61 @@ func main() {
 
 - Be careful with the singleton pattern, it can be an anti-pattern (only one instance of an object is created)
 - It is a global state, only use it when you need to share state across the application (in our example)
+
+## Builder Pattern and Fluent Interface
+
+- Allow us to chain methods
+  - Ex.
+
+    - ```go
+      p, err := pets.NewPetBuilder().SetName("Fido").SetType("Dog").SetAge(3).Build()
+      ```
+
+  - Ex.
+
+    - ```go
+      package main
+
+      import "fmt"
+
+      func main() {
+        address := CreateAddress().
+          SetStreet("123 Main St").
+          SetCity("Springfield").
+          SetState("IL").
+          SetZip("62701")
+
+        fmt.Println(address)
+      }
+
+      type Address struct {
+        Street string
+        City string
+        State string
+        Zip string
+      }
+
+      func CreateAddress() *Address {
+        return &Address{}
+      }
+
+      func (a *Address) SetStreet(street string) *Address {
+        a.Street = street
+        return a
+      }
+
+      func (a *Address) SetCity(city string) *Address {
+        a.City = city
+        return a
+      }
+
+      func (a *Address) SetState(state string) *Address {
+        a.State = state
+        return a
+      }
+
+      func (a *Address) SetZip(zip string) *Address {
+        a.Zip = zip
+        return a
+      }
+      ```
