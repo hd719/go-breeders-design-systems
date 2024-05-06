@@ -42,15 +42,15 @@
       fetch("/api/cat-from-factory", { method: 'get' })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           if (data.error) {
             dogFactoryOutput.innerHTML = data.error;
           } else {
-            dogFactoryOutput.innerHTML = JSON.stringify(data, undefined, 4);
+            dogFactoryOutput.innerHTML = JSON.stringify(data, undefined, 2);
           }
         })
     })
   })
-
 </script>
 
 {{end}}

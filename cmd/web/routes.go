@@ -23,7 +23,7 @@ func (app *application) routes() http.Handler {
 
 	// Factory Routers
 	mux.Get("/api/dog-from-factory", app.CreateDogFromFactory)
-	mux.Get("/api/cat-from/factory", app.CreateCatFromFactory)
+	mux.Get("/api/cat-from-factory", app.CreateCatFromFactory)
 
 	mux.Get("/", app.ShowHome)
 	mux.Get("/{page}", app.ShowPage)
