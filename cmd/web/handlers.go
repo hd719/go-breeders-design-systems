@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"go-breeders/models"
 	"go-breeders/pets"
 	"net/http"
 	"net/url"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/tsawler/toolbox"
@@ -142,10 +144,32 @@ func (app *application) AnimalFromAbstractFactory(w http.ResponseWriter, r *http
 
 func (app *application) DogOfMonth(w http.ResponseWriter, r *http.Request) {
 	// Get the breed
+	breed, _ := app.App.Models.DogBreed.GetBreedByName("German Shepherd Dog")
 
 	// Get the dog of the month from database
+	dom, _ := app.App.Models.Dog.GetDogOfMonthByID(1)
 
+	dob, _ := time.Parse("2006-01-02", "2014-05-14")
 	// Create the dog and decorate it
+	dog := models.DogOfMonth{
+		Dog: &models.Dog{
+			ID:               1,
+			DogName:          "Leo",
+			BreedID:          breed.ID,
+			Color:            "White",
+			DateOfBirth:      dob,
+			SpayedOrNeutered: 0,
+			Description:      "Leo is a very good boy",
+			Weight:           20,
+			Breed:            *breed,
+		},
+		Video: dom.Video,
+		Image: dom.Image,
+	}
 
 	// Serve the webpage
+	data := make(map[string]any)
+	data["dog"] = dog
+
+	app.render(w, "dog-of-month.page.tmpl", &templateData{Data: data})
 }
