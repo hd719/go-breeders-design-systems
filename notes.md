@@ -324,7 +324,8 @@ func main() {
   ```
 
 ## Next Steps
+
 - Creating a new abstract factory method
 - Creating JSON and XML adapters
-- Updating our singleton with addtional data
+- Updating our singleton with additional data
 - Trying it out on the front end

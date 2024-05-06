@@ -5,3 +5,7 @@ func (models *testRepository) AllDogBreeds() ([]*DogBreed, error) {
 
 	return breeds, nil
 }
+
+func (m *testRepository) GetBreedByName(b string) (*DogBreed, error) {
+	return nil, nil
+}
