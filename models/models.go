@@ -1,6 +1,27 @@
 package models
 
-import "time"
+import (
+	"database/sql"
+	"time"
+)
+
+var db *sql.DB
+
+type Models struct {
+	DogBreed DogBreed
+}
+
+func New(conn *sql.DB) *Models {
+	db = conn
+
+	return &Models{
+		DogBreed: DogBreed{},
+	}
+}
+
+func (d *DogBreed) All() ([]*DogBreed, error) {
+	return d.AllDogBreeds()
+}
 
 type DogBreed struct {
 	ID               int    `json:"id"`

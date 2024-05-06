@@ -116,3 +116,12 @@ func main() {
 
 - Create families of related objects without relying on their concrete classes using interfaces
 - Decouple client code from the concrete classes (we just want the FE to call some method and they get their object), for example in our case we may want to create a dog object from the database and the cat object from some remote api service
+
+
+## Repository Pattern
+
+- The repository pattern is a design pattern that abstracts the data store from the rest of the application
+- Actually an example of the Adapter pattern
+- Allows change databases with ease
+- Makes writing unit tests much simpler
+- An intermediary layer between an applications business logic and data storage
