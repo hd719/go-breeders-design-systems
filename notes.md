@@ -322,3 +322,9 @@ func main() {
   }
 
   ```
+
+## Next Steps
+- Creating a new abstract factory method
+- Creating JSON and XML adapters
+- Updating our singleton with addtional data
+- Trying it out on the front end

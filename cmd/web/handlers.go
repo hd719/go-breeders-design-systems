@@ -114,3 +114,16 @@ func (app *application) GetAllCatBreeds(w http.ResponseWriter, r *http.Request) 
 
 	_ = t.WriteJSON(w, http.StatusOK, catBreeds)
 }
+
+func (app *application) AnimalFromAbstractFactory(w http.ResponseWriter, r *http.Request) {
+	// Setup toolbox
+	var t toolbox.Tools
+
+	// Get species from remote URL
+
+	// Get the breed from the URL
+
+	// Create a pet from abstract factory
+
+	// Write the result as JSON
+}
